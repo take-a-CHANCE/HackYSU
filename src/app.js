@@ -5,6 +5,22 @@
  */
 var ajax = require('ajax');
 
+//Local variables
+var myLeftHand = 3;
+var myRightHand = 4;
+//opponent
+var oppLeftHand = 2;
+var oppRightHand = 4;
+
+var isLeft = false; //attacking with left or right
+var oppLeft = false; //attacking left or right 
+
+var attacking = false; //if atack false, splitting
+
+var myToken = Pebble.getAccessToken();
+var oppToken = 'TODO';
+
+
 //AJAX Server Routes
 var getData = function(){
   console.log("getting data");
@@ -29,7 +45,18 @@ var postData = function(){
       url: '', 
       type: 'json',
       method: 'POST',
-      data: data
+      data: {
+          me: {
+              token: Pebble.getAccessToken(),
+              left: myLeftHand,
+              right: myRightHand
+          },
+          opponent: {
+              token: oppToken,
+              left: myLeftHand,
+              right: myRightHand
+          }
+      }
   },
   function(data) {
     console.log("gotdata: " + JSON.stringify(data));
