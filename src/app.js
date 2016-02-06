@@ -93,7 +93,14 @@ main.on('select', function(e) {
    
   console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
     console.log('The item is titled "' + e.item.title + '"');
-  var myHand = new UI.Window();
+  var myHand = new UI.Window({
+    backgroundColor: 'white',
+    action: {
+      up: 'IMAGES_LEFT',
+      select: 'IMAGES_MIDDLE',
+      down: 'IMAGES_RIGHT'
+    }
+  });
   var rect = new UI.Rect({size: new Vector2(144, 168) });
   var oppUser = new UI.Text({
     text: e.item.title,
@@ -128,11 +135,6 @@ main.on('select', function(e) {
     font: 'gothic-18-bold'
   });
 
-  myHand.action({
-      up: 'IMAGES_LEFT',
-      select: 'IMAGES_MIDDLE',
-      down: 'IMAGES_RIGHT'
-  });
   myHand.add(rect);
   myHand.add(oppUser);
   myHand.add(oppScore);

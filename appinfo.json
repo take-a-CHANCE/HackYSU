@@ -30,6 +30,16 @@
                 "type": "font"
             },
             {
+                "file": "images/Minus",
+                "name": "IMAGES_MINUS",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/Plus",
+                "name": "IMAGES_PLUS",
+                "type": "bitmap"
+            },
+            {
                 "file": "images/Right",
                 "name": "IMAGES_RIGHT",
                 "type": "bitmap"
