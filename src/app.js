@@ -4,11 +4,13 @@
  * This is where you write your app.
  */
 var ajax = require('ajax');
+
+//AJAX Server Routes
 var getData = function(){
   console.log("getting data");
 
   ajax({
-      url: '192.168.137.136:8080/api/test.json', 
+      url: '', 
     type: 'json'
   },
   function(data) {
@@ -17,9 +19,28 @@ var getData = function(){
   },
     function(error) {
       console.log("Got error: " + JSON.stringify(error));
-    }
-);
+    });
 };
+
+var postData = function(){
+  console.log("getting data");
+
+  ajax({
+      url: '', 
+      type: 'json',
+      method: 'POST',
+      data: data
+  },
+  function(data) {
+    console.log("gotdata: " + JSON.stringify(data));
+    
+  },
+    function(error) {
+      console.log("Got error: " + JSON.stringify(error));
+    });
+};
+
+
 var UI = require('ui');
 var Vector2 = require('vector2');
 
@@ -35,6 +56,7 @@ var main =new UI.Menu({
       }]
     }]
 });
+
 main.on('select', function(e) {
     console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
     console.log('The item is titled "' + e.item.title + '"');
@@ -43,6 +65,7 @@ main.on('select', function(e) {
   var text = new UI.Text({
     text: 'Item: ' +e.item.title
   });
+
   myHand.action({
       up: 'IMAGE_LEFT_ARROW',
       select: 'IMAGE_MIDDLE_SELECT',
