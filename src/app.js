@@ -114,7 +114,7 @@ main.on('select', function(e) {
     textAlign: 'center',
     font: 'gothic-18-bold'
   });
-  var curUser = new UI.Text({
+  var myUser = new UI.Text({
     text: 'GSCK',
     position: new Vector2(0, 80),
     size: new Vector2(110, 20),
@@ -122,30 +122,55 @@ main.on('select', function(e) {
     textAlign: 'center',
     font: 'gothic-18-bold'
   });
-  var curScore = new UI.Text({
+  var myScore = new UI.Text({
     text: myLeftHand+'/'+myRightHand,
     position: new Vector2(0, 110),
     size: new Vector2(110, 20),
     color: 'black',
+    backgroundColor: 'white',
     textAlign: 'center',
     font: 'gothic-18-bold'
   });
-
+  var highlightMyLeft = new UI.Text({
+      text: myLeftHand,
+      position: new Vector2(43, 110),
+      size: new Vector2(8, 20),
+      backgroundColor: 'black',
+      color: 'white',
+      textAlign: 'right',
+      font: 'gothic-18-bold'
+    });
+  var highlightMyRight = new UI.Text({
+      text: myRightHand,
+      position: new Vector2(59, 110),
+      size: new Vector2(8, 20),
+      backgroundColor: 'black',
+      color: 'white',
+      textAlign: 'right',
+      font: 'gothic-18-bold'
+    });
   myHand.add(oppUser);
   myHand.add(oppScore);
-  myHand.add(curUser);
-  myHand.add(curScore);
+  myHand.add(myUser);
+  myHand.add(myScore);
   myHand.show();
   
   //Select Left
   myHand.on('click','up', function(e){
-    var hightlightLeft = new UI.Text({
-      
-    });
+    myHand.add(myScore);
+    myHand.add(highlightMyLeft);
+    myHand.show();
   });
   
   //Select Right
   myHand.on('click','down', function(e){
+    myHand.add(myScore);
+    myHand.add(highlightMyRight);
+    myHand.show();
+  });
+  
+  //Confirm
+  myHand.on('click','select', function(e){
     
   });
   
@@ -164,7 +189,7 @@ main.on('select', function(e) {
     
     var highlightFingy = new UI.Text({
       text: myLeftHand,
-      position: new Vector2(44, 110),
+      position: new Vector2(43, 110),
       size: new Vector2(8, 20),
       backgroundColor: 'black',
       color: 'white',
@@ -173,7 +198,7 @@ main.on('select', function(e) {
     });
     var restOfFingy = new UI.Text({
       text: '/'+myRightHand,
-      position: new Vector2(52, 110),
+      position: new Vector2(51, 110),
       size: new Vector2(55, 20),
       color: 'black',
       textAlign: 'left',
@@ -181,6 +206,7 @@ main.on('select', function(e) {
     });
     splitWin.add(restOfFingy);
     splitWin.add(oppUser);
+    splitWin.add(oppScore);
     splitWin.add(curUser);
     splitWin.add(highlightFingy);
     splitWin.show();
