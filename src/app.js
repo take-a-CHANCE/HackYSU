@@ -111,6 +111,7 @@ main.on('select', function(e) {
     position: new Vector2(0, 40),
     size: new Vector2(110, 20),
     color: 'black',
+    backgroundColor: 'white',
     textAlign: 'center',
     font: 'gothic-18-bold'
   });
@@ -155,10 +156,25 @@ main.on('select', function(e) {
   myHand.add(myScore);
   myHand.show();
   
+  //Reload page
+  myHand.on('show',function(){
+    myHand.add(oppUser);
+    myHand.add(oppScore);
+    myHand.add(myUser);
+    myHand.add(myScore);
+    if(isLeft){
+      myHand.add(highlightMyLeft);
+    } else {
+      myHand.add(highlightMyRight);
+    }
+    myHand.show();
+  });
+  
   //Select Left
   myHand.on('click','up', function(e){
     myHand.add(myScore);
     myHand.add(highlightMyLeft);
+    isLeft = true;
     myHand.show();
   });
   
@@ -166,11 +182,72 @@ main.on('select', function(e) {
   myHand.on('click','down', function(e){
     myHand.add(myScore);
     myHand.add(highlightMyRight);
+    isLeft = false;
     myHand.show();
   });
   
   //Confirm
   myHand.on('click','select', function(e){
+    var theirHand = new UI.Window({
+      backgroundColor: 'white',
+      action: {
+        up: 'IMAGES_LEFT',
+        select: 'IMAGES_MIDDLE',
+        down: 'IMAGES_RIGHT'
+      }
+    });
+    
+    var highlightTheirLeft = new UI.Text({
+      text: oppLeftHand,
+      position: new Vector2(43, 40),
+      size: new Vector2(8, 20),
+      backgroundColor: 'black',
+      color: 'white',
+      textAlign: 'right',
+      font: 'gothic-18-bold'
+    });
+    var highlightTheirRight = new UI.Text({
+      text: oppRightHand,
+      position: new Vector2(59, 40),
+      size: new Vector2(8, 20),
+      backgroundColor: 'black',
+      color: 'white',
+      textAlign: 'right',
+      font: 'gothic-18-bold'
+    });
+    
+    //Select Left
+    theirHand.on('click','up', function(e){
+      theirHand.add(oppScore);
+      theirHand.add(highlightTheirLeft);
+      oppLeft = true;
+      theirHand.show();
+    });
+    
+    //Select Right
+    theirHand.on('click','down', function(e){
+      theirHand.add(oppScore);
+      theirHand.add(highlightTheirRight);
+      oppLeft = false;
+      theirHand.show();
+    });
+    
+    //Confirm
+    theirHand.on('click','select', function(e){
+      //Stuff for sending state
+    });
+    
+    theirHand.add(oppUser);
+    theirHand.add(oppScore);
+    theirHand.add(myUser);
+    theirHand.add(myScore);
+    if(isLeft){
+      theirHand.add(highlightMyLeft);
+    } else {
+      theirHand.add(highlightMyRight);
+    }
+    theirHand.show();
+    
     
   });
   
@@ -178,7 +255,7 @@ main.on('select', function(e) {
   myHand.on('longClick','select', function(){
     console.log("Middle Pressed");
     Vibe.vibrate('short');
-    var splitWin = new UI.Window({
+    var splitWind = new UI.Window({
       backgroundColor: 'white',
       action: {
         up: 'IMAGES_PLUS',
@@ -187,29 +264,21 @@ main.on('select', function(e) {
       }
     });
     
-    var highlightFingy = new UI.Text({
-      text: myLeftHand,
-      position: new Vector2(43, 110),
-      size: new Vector2(8, 20),
-      backgroundColor: 'black',
-      color: 'white',
-      textAlign: 'right',
-      font: 'gothic-18-bold'
+    
+    splitWind.add(highlightMyLeft);
+    splitWind.add(oppUser);
+    splitWind.add(oppScore);
+    splitWind.add(myUser);
+    splitWind.show();
+    splitWind.on('click','up',function(){
+      //Increment Left, Decrement Right
     });
-    var restOfFingy = new UI.Text({
-      text: '/'+myRightHand,
-      position: new Vector2(51, 110),
-      size: new Vector2(55, 20),
-      color: 'black',
-      textAlign: 'left',
-      font: 'gothic-18-bold'
+    splitWind.on('click','down',function(){
+      //Increment right, Decrement left
     });
-    splitWin.add(restOfFingy);
-    splitWin.add(oppUser);
-    splitWin.add(oppScore);
-    splitWin.add(curUser);
-    splitWin.add(highlightFingy);
-    splitWin.show();
+    splitWind.on('click','select',function(){
+      //confirm and send data
+    });
   });
   
 });
