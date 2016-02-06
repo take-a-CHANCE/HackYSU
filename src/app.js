@@ -129,9 +129,9 @@ main.on('select', function(e) {
   });
 
   myHand.action({
-      up: 'IMAGE_LEFT_ARROW',
-      select: 'IMAGE_MIDDLE_SELECT',
-      down: 'IMAGE_RIGHT_ARROW'
+      up: 'IMAGES_LEFT',
+      select: 'IMAGES_MIDDLE',
+      down: 'IMAGES_RIGHT'
   });
   myHand.add(rect);
   myHand.add(oppUser);
