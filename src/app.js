@@ -72,7 +72,7 @@ postData();
 var UI = require('ui');
 var Vector2 = require('vector2');
 var Vibe = require('ui/vibe');
-var Accel = require('ui/accel');
+
 
 var main =new UI.Menu({
   highlightBackgroundColor: 'blue', 
@@ -90,13 +90,11 @@ var main =new UI.Menu({
 
 
 main.on('select', function(e) {
-   
-  console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
-    console.log('The item is titled "' + e.item.title + '"');
   var myHand = new UI.Window({
     backgroundColor: 'white',
     action: {
       up: 'IMAGES_LEFT',
+      select: 'IMAGES_MIDDLE',
       down: 'IMAGES_RIGHT'
     }
   });
@@ -134,7 +132,7 @@ main.on('select', function(e) {
     font: 'gothic-18-bold'
   });
 
-  myHand.add(rect);
+  //myHand.add(rect);
   myHand.add(oppUser);
   myHand.add(oppScore);
   myHand.add(curUser);
@@ -142,13 +140,39 @@ main.on('select', function(e) {
   myHand.show();
   
   //Select Left
-  myHand.on('click','up',function(e){
+  myHand.on('click','up',function(){
     
   });
   
   //Select Right
-  myHand.on('click','down',function(e){
+  myHand.on('click','down',function(){
     
+  });
+  
+  //Bash fingers together
+  myHand.on('click','select',function(){
+    var splitWin = UI.Window({
+      backgroundColor: 'white',
+      action: {
+        up: 'IMAGES_PLUS',
+        select: 'IMAGES_MIDDLE',
+        down: 'IMAGES_MINUS'
+      }
+    });
+    splitWin.add(rect);
+    splitWin.add(oppUser);
+    splitWin.add(curUser);
+    var highlightFingy = UI.Text({
+      text: myLeftHand,
+      position: new Vector2(0, 110),
+      size: new Vector2(45, 20),
+      backgroundColor: 'black',
+      color: 'white',
+      textAlign: 'center',
+      font: 'gothic-18-bold'
+    });
+    splitWin.add(highlightFingy);
+    splitWin.show();
   });
 });
 main.on('longSelect',function(e) {
