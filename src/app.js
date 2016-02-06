@@ -3,35 +3,19 @@
  *
  * This is where you write your app.
  */
-var ajax = require('ajax');
-var getData = function(){
-  console.log("getting data");
 
-  ajax({
-      url: '192.168.137.136:8080/api/test.json', 
-    type: 'json'
-  },
-  function(data) {
-    console.log("gotdata: " + JSON.stringify(data));
-    
-  },
-    function(error) {
-      console.log("Got error: " + JSON.stringify(error));
-    }
-);
-};
 var UI = require('ui');
 var Vector2 = require('vector2');
 
 var main = new UI.Card({
-  title: 'Pebble.js',
+  title: 'Pebble Chopsticks',
   icon: 'images/menu_icon.png',
-  subtitle: 'Hello World!',
+  subtitle: 'Chopsticks',
   body: 'Press any button.',
   subtitleColor: 'indigo', // Named colors
   bodyColor: '#9a0036' // Hex colors
 });
-getData();
+
 main.show();
 
 main.on('click', 'up', function(e) {
@@ -81,6 +65,6 @@ main.on('click', 'down', function(e) {
   var card = new UI.Card();
   card.title('A Card');
   card.subtitle('Is a Window');
-  card.body('The simplest window type in Pebble.js.');
+  card.body('The simplest window type in Pebble.js.\nHello World!');
   card.show();
 });
