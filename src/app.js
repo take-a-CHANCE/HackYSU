@@ -17,7 +17,7 @@ var oppLeft = false; //attacking left or right
 
 var attacking = false; //if atack false, splitting
 
-var myToken = Pebble.getAccessToken();
+var myToken = 'TODO';
 var oppToken = 'TODO';
 
 
@@ -53,8 +53,8 @@ var postData = function(){
           },
           opponent: {
               token: oppToken,
-              left: myLeftHand,
-              right: myRightHand
+              left: oppLeftHand,
+              right: oppRightHand
           }
       }
   },
