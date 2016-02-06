@@ -4,7 +4,7 @@
         ""
     ],
     "companyName": "chancejd53@gmail.com",
-    "longName": "HackYSU",
+    "longName": "Pebble Chopsticks",
     "projectType": "pebblejs",
     "resources": {
         "media": [
@@ -47,7 +47,7 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "HackYSU",
+    "shortName": "Chopsticks",
     "targetPlatforms": [
         "aplite",
         "basalt"

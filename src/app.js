@@ -24,7 +24,8 @@ var UI = require('ui');
 var Vector2 = require('vector2');
 
 var main =new UI.Menu({
-   sections: [{
+  highlightBackgroundColor: 'blue', 
+  sections: [{
       items: [{
         title: 'First User',
         subtitle: 'Can do Menus'
@@ -37,15 +38,24 @@ var main =new UI.Menu({
 main.on('select', function(e) {
     console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
     console.log('The item is titled "' + e.item.title + '"');
-  var myHand = new UI.Window({
-    
+  var myHand = new UI.Window();
+  var rect = new UI.Rect({size: new Vector2(200, 300) });
+  var text = new UI.Text({
+    text: 'Item: ' +e.item.title
   });
+  myHand.action({
+      up: 'IMAGE_LEFT_ARROW',
+      select: 'IMAGE_MIDDLE_SELECT',
+      down: 'IMAGE_RIGHT_ARROW'
+  });
+  myHand.add(rect);
+  myHand.add(text);
   myHand.show();
 });
-main.on('longClick','select',function(e) {
+main.on('longSelect',function(e) {
   var help = new UI.Card({
     title: 'Help!',
-    body: 'This is the help section of the app',
+    body: 'This is the help section of the app this is going to be fleshed out later hopefully. In the meantime, DOGS',
     scrollable: true
   });
   help.show();
