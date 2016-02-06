@@ -28,6 +28,21 @@
                 "file": "fonts/UbuntuMono-Regular.ttf",
                 "name": "MONO_FONT_14",
                 "type": "font"
+            },
+            {
+                "file": "images/Right",
+                "name": "IMAGES_RIGHT",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/Middle",
+                "name": "IMAGES_MIDDLE",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/Left",
+                "name": "IMAGES_LEFT",
+                "type": "bitmap"
             }
         ]
     },
