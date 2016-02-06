@@ -3,7 +3,23 @@
  *
  * This is where you write your app.
  */
+var ajax = require('ajax');
+var getData = function(){
+  console.log("getting data");
 
+  ajax({
+      url: '192.168.137.136:8080/api/test.json', 
+    type: 'json'
+  },
+  function(data) {
+    console.log("gotdata: " + JSON.stringify(data));
+    
+  },
+    function(error) {
+      console.log("Got error: " + JSON.stringify(error));
+    }
+);
+};
 var UI = require('ui');
 var Vector2 = require('vector2');
 
@@ -15,7 +31,7 @@ var main = new UI.Card({
   subtitleColor: 'indigo', // Named colors
   bodyColor: '#9a0036' // Hex colors
 });
-
+getData();
 main.show();
 
 main.on('click', 'up', function(e) {
