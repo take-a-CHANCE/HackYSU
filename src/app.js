@@ -47,7 +47,7 @@ var postData = function(){
       method: 'POST',
       data: {
           me: {
-              token: Pebble.getAccessToken(),
+              token: myToken,
               left: myLeftHand,
               right: myRightHand
           },
