@@ -139,7 +139,9 @@ main.on('select', function(e) {
   
   //Select Left
   myHand.on('click','up', function(e){
-    
+    var hightlightLeft = new UI.Text({
+      
+    });
   });
   
   //Select Right
@@ -148,10 +150,10 @@ main.on('select', function(e) {
   });
   
   //Bash fingers together
-  myHand.on('longClick','select', function(e){
+  myHand.on('longClick','select', function(){
     console.log("Middle Pressed");
     Vibe.vibrate('short');
-    var splitWin = UI.Window({
+    var splitWin = new UI.Window({
       backgroundColor: 'white',
       action: {
         up: 'IMAGES_PLUS',
@@ -160,15 +162,24 @@ main.on('select', function(e) {
       }
     });
     
-    var highlightFingy = UI.Text({
+    var highlightFingy = new UI.Text({
       text: myLeftHand,
-      position: new Vector2(0, 110),
-      size: new Vector2(45, 20),
+      position: new Vector2(44, 110),
+      size: new Vector2(8, 20),
       backgroundColor: 'black',
       color: 'white',
-      textAlign: 'center',
+      textAlign: 'right',
       font: 'gothic-18-bold'
     });
+    var restOfFingy = new UI.Text({
+      text: '/'+myRightHand,
+      position: new Vector2(52, 110),
+      size: new Vector2(55, 20),
+      color: 'black',
+      textAlign: 'left',
+      font: 'gothic-18-bold'
+    });
+    splitWin.add(restOfFingy);
     splitWin.add(oppUser);
     splitWin.add(curUser);
     splitWin.add(highlightFingy);
@@ -178,7 +189,7 @@ main.on('select', function(e) {
 });
 
 
-main.on('longSelect',function(e) {
+main.on('longSelect',function() {
   Vibe.vibrate('short');
   var help = new UI.Card({
     title: 'Help!',
