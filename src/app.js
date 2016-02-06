@@ -88,10 +88,22 @@ main.on('select', function(e) {
     console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
     console.log('The item is titled "' + e.item.title + '"');
   var myHand = new UI.Window();
-  var rect = new UI.Rect({size: new Vector2(200, 300) });
-  var text = new UI.Text({
-    text: 'Item: ' +e.item.title,
-    color: 'black'
+  var rect = new UI.Rect({size: new Vector2(144, 168) });
+  var oppUser = new UI.Text({
+    text: e.item.title,
+    position: new Vector2(0, 0),
+    size: new Vector2(110, 20),
+    color: 'black',
+    textAlign: 'center',
+    font: 'gothic-18-bold'
+  });
+  var oppScore = new UI.Text({
+    text: e.itemIndex+'/'+e.sectionIndex,
+    position: new Vector2(0, 30),
+    size: new Vector2(110, 20),
+    color: 'black',
+    textAlign: 'center',
+    font: 'gothic-18-bold'
   });
 
   myHand.action({
@@ -100,7 +112,8 @@ main.on('select', function(e) {
       down: 'IMAGE_RIGHT_ARROW'
   });
   myHand.add(rect);
-  myHand.add(text);
+  myHand.add(oppUser);
+  myHand.add(oppScore);
   myHand.show();
 });
 main.on('longSelect',function(e) {
