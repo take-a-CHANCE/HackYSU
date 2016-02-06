@@ -97,7 +97,6 @@ main.on('select', function(e) {
     backgroundColor: 'white',
     action: {
       up: 'IMAGES_LEFT',
-      select: 'IMAGES_MIDDLE',
       down: 'IMAGES_RIGHT'
     }
   });
@@ -141,6 +140,16 @@ main.on('select', function(e) {
   myHand.add(curUser);
   myHand.add(curScore);
   myHand.show();
+  
+  //Select Left
+  myHand.on('click','up',function(e){
+    
+  });
+  
+  //Select Right
+  myHand.on('click','down',function(e){
+    
+  });
 });
 main.on('longSelect',function(e) {
   Vibe.vibrate('short');
