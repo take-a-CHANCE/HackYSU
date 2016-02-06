@@ -90,7 +90,8 @@ main.on('select', function(e) {
   var myHand = new UI.Window();
   var rect = new UI.Rect({size: new Vector2(200, 300) });
   var text = new UI.Text({
-    text: 'Item: ' +e.item.title
+    text: 'Item: ' +e.item.title,
+    color: 'green'
   });
 
   myHand.action({
