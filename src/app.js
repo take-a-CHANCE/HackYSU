@@ -46,10 +46,18 @@ main.on('click', 'select', function(e) {
     position: new Vector2(0, 65),
     size: new Vector2(144, 30),
     font: 'gothic-24-bold',
-    text: 'Text Anywhere!',
+    text: 'Text Middle!',
+    textAlign: 'center'
+  });
+  var textfield2 = new UI.Text({
+    position: new Vector2(0,0),
+    size: new Vector2(144,30),
+    font: 'gothic-24-bold',
+    text: 'Text Bottom',
     textAlign: 'center'
   });
   wind.add(textfield);
+  wind.add(textfield2);
   wind.show();
 });
 
