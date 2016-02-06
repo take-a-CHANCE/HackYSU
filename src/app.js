@@ -264,7 +264,7 @@ main.on('select', function(e) {
       }
     });
     
-    
+    splitWind.add(myScore);
     splitWind.add(highlightMyLeft);
     splitWind.add(oppUser);
     splitWind.add(oppScore);
