@@ -6,11 +6,11 @@
 var ajax = require('ajax');
 
 //Local variables
-var myLeftHand = 3;
-var myRightHand = 4;
+var myLeftHand = 1;
+var myRightHand = 1;
 //opponent
-var oppLeftHand = 2;
-var oppRightHand = 4;
+var oppLeftHand = 1;
+var oppRightHand = 1;
 
 var isLeft = false; //attacking with left or right
 var oppLeft = false; //attacking left or right 
