@@ -70,6 +70,8 @@ var postData = function(){
 
 var UI = require('ui');
 var Vector2 = require('vector2');
+var Vibe = require('ui/vibe');
+var Accel = require('ui/accel');
 
 var main =new UI.Menu({
   highlightBackgroundColor: 'blue', 
@@ -84,8 +86,11 @@ var main =new UI.Menu({
     }]
 });
 
+
+
 main.on('select', function(e) {
-    console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
+   
+  console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
     console.log('The item is titled "' + e.item.title + '"');
   var myHand = new UI.Window();
   var rect = new UI.Rect({size: new Vector2(144, 168) });
@@ -98,7 +103,7 @@ main.on('select', function(e) {
     font: 'gothic-18-bold'
   });
   var oppScore = new UI.Text({
-    text: e.itemIndex+'/'+e.sectionIndex,
+    text: oppLeftHand+'/'+oppRightHand,
     position: new Vector2(0, 40),
     size: new Vector2(110, 20),
     color: 'black',
@@ -107,15 +112,15 @@ main.on('select', function(e) {
   });
   var curUser = new UI.Text({
     text: 'GSCK',
-    position: new Vector2(0, 70),
+    position: new Vector2(0, 80),
     size: new Vector2(110, 20),
     color: 'black',
     textAlign: 'center',
     font: 'gothic-18-bold'
   });
   var curScore = new UI.Text({
-    text: e.itemIndex+1+'/'+e.sectionIndex+3,
-    position: new Vector2(0, 100),
+    text: myLeftHand+'/'+myRightHand,
+    position: new Vector2(0, 110),
     size: new Vector2(110, 20),
     color: 'black',
     textAlign: 'center',
@@ -135,6 +140,7 @@ main.on('select', function(e) {
   myHand.show();
 });
 main.on('longSelect',function(e) {
+  Vibe.vibrate('short');
   var help = new UI.Card({
     title: 'Help!',
     body: 'This is the help section of the app this is going to be fleshed out later hopefully. In the meantime, DOGS',
