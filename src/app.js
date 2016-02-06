@@ -239,6 +239,7 @@ main.on('select', function(e) {
     
     theirHand.add(oppUser);
     theirHand.add(oppScore);
+    theirHand.add(highlightTheirLeft);
     theirHand.add(myUser);
     theirHand.add(myScore);
     if(isLeft){
@@ -264,6 +265,16 @@ main.on('select', function(e) {
       }
     });
     
+    /*//Local variables
+var myLeftHand = 1;
+var myRightHand = 1;
+//opponent
+var oppLeftHand = 1;
+var oppRightHand = 1;
+
+var isLeft = false; //attacking with left or right
+var oppLeft = false; //attacking left or right */
+    
     splitWind.add(myScore);
     splitWind.add(highlightMyLeft);
     splitWind.add(oppUser);
@@ -272,9 +283,23 @@ main.on('select', function(e) {
     splitWind.show();
     splitWind.on('click','up',function(){
       //Increment Left, Decrement Right
+      if ((myRightHand - 1) === 0) { // if subtracting 1 would give you 0, then we vibrate to let the user know that's not okay
+        Vibe.vibrate('short');
+      }
+      else { // otherwise increment left and decrement right
+        myLeftHand = myLeftHand + 1;
+        myRightHand = myRightHand - 1;
+      }
     });
     splitWind.on('click','down',function(){
       //Increment right, Decrement left
+      if ((myLeftHand - 1) === 0) {
+        Vibe.vibrate('short');
+      }
+      else {
+        myRightHand = myRightHand + 1;
+        myLeftHand = myLeftHand - 1;
+      }
     });
     splitWind.on('click','select',function(){
       //confirm and send data
