@@ -91,7 +91,7 @@ main.on('select', function(e) {
   var rect = new UI.Rect({size: new Vector2(200, 300) });
   var text = new UI.Text({
     text: 'Item: ' +e.item.title,
-    color: 'green'
+    color: 'black'
   });
 
   myHand.action({
