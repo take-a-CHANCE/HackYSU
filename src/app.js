@@ -91,7 +91,7 @@ main.on('select', function(e) {
   var rect = new UI.Rect({size: new Vector2(144, 168) });
   var oppUser = new UI.Text({
     text: e.item.title,
-    position: new Vector2(0, 0),
+    position: new Vector2(0, 10),
     size: new Vector2(110, 20),
     color: 'black',
     textAlign: 'center',
@@ -99,7 +99,23 @@ main.on('select', function(e) {
   });
   var oppScore = new UI.Text({
     text: e.itemIndex+'/'+e.sectionIndex,
-    position: new Vector2(0, 30),
+    position: new Vector2(0, 40),
+    size: new Vector2(110, 20),
+    color: 'black',
+    textAlign: 'center',
+    font: 'gothic-18-bold'
+  });
+  var curUser = new UI.Text({
+    text: 'GSCK',
+    position: new Vector2(0, 70),
+    size: new Vector2(110, 20),
+    color: 'black',
+    textAlign: 'center',
+    font: 'gothic-18-bold'
+  });
+  var curScore = new UI.Text({
+    text: e.itemIndex+1+'/'+e.sectionIndex+3,
+    position: new Vector2(0, 100),
     size: new Vector2(110, 20),
     color: 'black',
     textAlign: 'center',
@@ -114,6 +130,8 @@ main.on('select', function(e) {
   myHand.add(rect);
   myHand.add(oppUser);
   myHand.add(oppScore);
+  myHand.add(curUser);
+  myHand.add(curScore);
   myHand.show();
 });
 main.on('longSelect',function(e) {
