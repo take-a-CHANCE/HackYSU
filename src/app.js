@@ -312,32 +312,39 @@ main.on('select', function(e) {
     splitWind.add(oppScore);
     splitWind.add(myUser);
     splitWind.show();
+     var tempL = myLeftHand;
+    var tempR = myRightHand;
     splitWind.on('click','up',function(){
       //Increment Left, Decrement Right
-      if ((myRightHand - 1) === 0) { // if subtracting 1 would give you 0, then we vibrate to let the user know that's not okay
+      if(myLeftHand+1 === 5 || myRightHand-1 === 0){
         Vibe.vibrate('short');
       }
-      else { // otherwise increment left and decrement right
-        myLeftHand = myLeftHand + 1;
-        myRightHand = myRightHand - 1;
+      else if(myLeftHand+1 === tempR || myRightHand-1 === tempL){
+        Vibe.vibrate('short');
+      }
+      else{
+        myLeftHand++;
+        myRightHand--;
       }
     });
     splitWind.on('click','down',function(){
       //Increment right, Decrement left
-      if ((myLeftHand - 1) === 0) {
+      if(myRightHand+1 === 5 || myLeftHand-1 === 0){
         Vibe.vibrate('short');
       }
-      else {
-        myRightHand = myRightHand + 1;
-        myLeftHand = myLeftHand - 1;
+      else if(myRightHand+1 === tempL || myLeftHand-1 === tempR){
+        Vibe.vibrate('short');
+      }
+      else{
+        myRightHand++;
+        myLeftHand--;
       }
     });
     splitWind.on('click','select',function(){
       //confirm and send data
-      
-      postData();
     });
   });
+  
 });
 };
 
