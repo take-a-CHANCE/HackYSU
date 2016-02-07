@@ -16,7 +16,7 @@ var oppRightHand = 1;
 var isLeft = false; //attacking with left or right
 var oppLeft = false; //attacking left or right 
 
-var returned = "1111"; //me left, me right, opponent left, opponent right
+var returned = "1411"; //me left, me right, opponent left, opponent right
 var gameState = ''; 
 
 
@@ -252,6 +252,7 @@ main.on('select', function(e) {
       else if (user_score > 5) {
         user_score = user_score - 5;
       }
+      return user_score;
     };
     
     //Confirm
@@ -314,35 +315,48 @@ main.on('select', function(e) {
     splitWind.show();
      var tempL = myLeftHand;
     var tempR = myRightHand;
+    var valid = false;
     splitWind.on('click','up',function(){
       //Increment Left, Decrement Right
       if(myLeftHand+1 === 5 || myRightHand-1 === 0){
-        Vibe.vibrate('short');
+        valid = false;
       }
       else if(myLeftHand+1 === tempR || myRightHand-1 === tempL){
-        Vibe.vibrate('short');
+        valid = false;
       }
-      else{
-        myLeftHand++;
-        myRightHand--;
+      else {
+        valid = true;
       }
+      myLeftHand++;
+      myRightHand--;
+      splitWind.show();
     });
     splitWind.on('click','down',function(){
       //Increment right, Decrement left
       if(myRightHand+1 === 5 || myLeftHand-1 === 0){
-        Vibe.vibrate('short');
+        valid = false;
       }
       else if(myRightHand+1 === tempL || myLeftHand-1 === tempR){
-        Vibe.vibrate('short');
+        valid = false;
       }
       else{
+        valid = true;
+      }
         myRightHand++;
         myLeftHand--;
-      }
+      splitWind.show();
     });
-    splitWind.on('click','select',function(){
-      //confirm and send data
-    });
+    if(valid){
+      splitWind.on('click','select',function(){
+        postData();
+        valid = false;
+      });
+    }
+    else{
+      splitWind.on('click','select',function(){
+        Vibe.vibrate('short');
+      });
+    }
   });
   
 });
@@ -361,7 +375,3 @@ main.on('longSelect',function() {
 });
 
 main.show();
-
-/*var update = function() {
-    getData();
-} */
