@@ -233,9 +233,37 @@ main.on('select', function(e) {
       theirHand.show();
     });
     
+    var check = function(user_score) {
+      if (user_score === 5) {
+        user_score = 0;
+      }
+      else if (user_score > 5) {
+        user_score = user_score - 5;
+      }
+    };
+    
     //Confirm
     theirHand.on('click','select', function(e){
       //Stuff for sending state
+      if (oppLeft) {
+        if (isLeft) {
+          oppLeftHand = oppLeftHand + myLeftHand;
+        }
+        else {
+          oppLeftHand = oppLeftHand + myRightHand;
+        }
+        check(oppLeftHand);
+      }
+      else {
+        if (isLeft) {
+          oppRightHand = oppRightHand + myLeftHand;
+        }
+        else {
+          oppRightHand = oppRightHand + myRightHand;
+        }
+        check(oppRightHand);
+      }
+      
     });
     
     theirHand.add(oppUser);
