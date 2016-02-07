@@ -16,7 +16,7 @@ var isLeft = false; //attacking with left or right
 var oppLeft = false; //attacking left or right 
 
 var returned = 0;
-var gameState = '11110'; //me left, me right, opponent left, opponent right, opponent moved (bool)
+var gameState = '1111G'; //me left, me right, opponent left, opponent right, opponent moved (bool)
 
 
 //AJAX Server Routes
@@ -40,7 +40,7 @@ var getData = function(){
 
 var postData = function(){
   console.log("getting data");
-
+    gameState = myLeftHand.toString() + myRightHand.toString() + oppLeftHand.toString() + oppRightHand.toString() + 'J';
   ajax({
       url: 'https://api.particle.io/v1/devices/1e0041000447343337373738/setState?access_token=2611cd6341fadba0f63a3b190bd8c8540543592a', 
       type: 'json',
@@ -65,10 +65,6 @@ var postData = function(){
 var update = function() {
     
 };
-
-
-postData();
-getData();
 
 var UI = require('ui');
 var Vector2 = require('vector2');
