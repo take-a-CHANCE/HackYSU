@@ -15,7 +15,9 @@ var oppRightHand = 1;
 var isLeft = false; //attacking with left or right
 var oppLeft = false; //attacking left or right 
 
+var returned = 0;
 var gameState = '11110'; //me left, me right, opponent left, opponent right, opponent moved (bool)
+
 
 //AJAX Server Routes
 var getData = function(){
@@ -25,8 +27,8 @@ var getData = function(){
       type: 'json'
   },
   function(data) { 
-    console.log("got data: " + data);
-    gameState = data;
+    console.log("got get: " + JSON.stringify(data));
+    returned = data;
   },
     function(error, status, request) {
         console.log(this,typeof this);
@@ -44,13 +46,12 @@ var postData = function(){
       type: 'json',
       method: 'POST',
       data: {
-          deviceID: "1e0041000447343337373738",
-          functionName: "setState",
-          arg: gameState
+          arg: gameState,
+          format: 'raw'
       }
   },
   function(data) {
-    console.log("gotdata: " + JSON.stringify(data));
+    console.log("got post: " + JSON.stringify(data));
     
   },
     function(error, status, request) {
@@ -60,6 +61,11 @@ var postData = function(){
       console.log("Got error: " + JSON.stringify(error));
     });
 };
+
+var update = function() {
+    
+};
+
 
 postData();
 getData();
