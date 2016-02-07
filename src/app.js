@@ -75,7 +75,6 @@ var Vibe = require('ui/vibe');
 
 
 var main =new UI.Menu({
-  highlightBackgroundColor: 'blue', 
   sections: [{
       items: [{
         title: 'First User',
@@ -86,6 +85,7 @@ var main =new UI.Menu({
       }]
     }]
 });
+
 
 
 
