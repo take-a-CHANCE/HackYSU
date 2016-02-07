@@ -5,6 +5,7 @@
  */
 var ajax = require('ajax');
 
+
 //Local variables
 var myLeftHand = 1;
 var myRightHand = 1;
@@ -15,8 +16,8 @@ var oppRightHand = 1;
 var isLeft = false; //attacking with left or right
 var oppLeft = false; //attacking left or right 
 
-var returned = 0;
-var gameState = '1111G'; //me left, me right, opponent left, opponent right, opponent moved (bool)
+var returned = "1111"; //me left, me right, opponent left, opponent right
+var gameState = ''; 
 
 
 //AJAX Server Routes
@@ -28,7 +29,8 @@ var getData = function(){
   },
   function(data) { 
     console.log("got get: " + JSON.stringify(data));
-    returned = data;
+    console.log(data.result);
+    returned = data.result;
   },
     function(error, status, request) {
         console.log(this,typeof this);
@@ -40,7 +42,7 @@ var getData = function(){
 
 var postData = function(){
   console.log("getting data");
-    gameState = myLeftHand.toString() + myRightHand.toString() + oppLeftHand.toString() + oppRightHand.toString() + 'J';
+    gameState = myLeftHand.toString() + myRightHand.toString() + oppLeftHand.toString() + oppRightHand.toString();
   ajax({
       url: 'https://api.particle.io/v1/devices/1e0041000447343337373738/setState?access_token=2611cd6341fadba0f63a3b190bd8c8540543592a', 
       type: 'json',
@@ -63,7 +65,21 @@ var postData = function(){
 };
 
 var update = function() {
-    
+  getData();
+  if (gameState === returned){
+    console.log("Waiting");
+  }
+  else {
+    console.log("My turn");
+    gameState = returned;
+    console.log(returned);
+    console.log(typeof gameState);
+    myLeftHand = parseInt(gameState.substr(0,1));
+    myRightHand = parseInt(gameState.substr(1,1));
+    oppLeftHand = parseInt(gameState.substr(2,1));
+    oppRightHand = parseInt(gameState.substr(3,1));
+    turn();
+  }
 };
 
 var UI = require('ui');
@@ -84,8 +100,7 @@ var main =new UI.Menu({
     }]
 });
 
-
-
+var turn = function() {
 
 main.on('select', function(e) {
   var myHand = new UI.Window({
@@ -260,7 +275,7 @@ main.on('select', function(e) {
         }
         check(oppRightHand);
       }
-      
+      postData();
     });
     
     theirHand.add(oppUser);
@@ -291,16 +306,6 @@ main.on('select', function(e) {
       }
     });
     
-    /*//Local variables
-var myLeftHand = 1;
-var myRightHand = 1;
-//opponent
-var oppLeftHand = 1;
-var oppRightHand = 1;
-
-var isLeft = false; //attacking with left or right
-var oppLeft = false; //attacking left or right */
-    
     splitWind.add(myScore);
     splitWind.add(highlightMyLeft);
     splitWind.add(oppUser);
@@ -329,11 +334,14 @@ var oppLeft = false; //attacking left or right */
     });
     splitWind.on('click','select',function(){
       //confirm and send data
+      
+      postData();
     });
   });
-  
 });
+};
 
+update();
 
 main.on('longSelect',function() {
   Vibe.vibrate('short');
@@ -347,26 +355,6 @@ main.on('longSelect',function() {
 
 main.show();
 
-var update = function() {
+/*var update = function() {
     getData();
-    
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+} */
