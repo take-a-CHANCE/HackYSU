@@ -15,26 +15,24 @@ var oppRightHand = 1;
 var isLeft = false; //attacking with left or right
 var oppLeft = false; //attacking left or right 
 
-var attacking = false; //if atack false, splitting
-
-var myToken = 'TODO';
-var oppToken = 'TODO';
-
+var gameState = '11110'; //me left, me right, opponent left, opponent right, opponent moved (bool)
 
 //AJAX Server Routes
 var getData = function(){
-  console.log("getting data");
 
   ajax({
-      url: 'ec2-52-34-188-16.us-west-2.compute.amazonaws.com:8080/api/player', 
-    type: 'json'
+      url: 'https://api.particle.io/v1/devices/1e0041000447343337373738/state?access_token=2611cd6341fadba0f63a3b190bd8c8540543592a', 
+      type: 'json'
   },
-  function(data) {
-    console.log("gotdata: " + JSON.stringify(data));
-    
+  function(data) { 
+    console.log("got data: " + data);
+    gameState = data;
   },
-    function(error) {
-      console.log("Got error: " + JSON.stringify(error));
+    function(error, status, request) {
+        console.log(this,typeof this);
+        console.log("status: "+ status);
+        console.log("Request: " + request);
+      console.log("Got error: " + error);
     });
 };
 
@@ -42,20 +40,13 @@ var postData = function(){
   console.log("getting data");
 
   ajax({
-      url: 'ec2-52-34-188-16.us-west-2.compute.amazonaws.com:8080/api/turn', 
+      url: 'https://api.particle.io/v1/devices/1e0041000447343337373738/setState?access_token=2611cd6341fadba0f63a3b190bd8c8540543592a', 
       type: 'json',
       method: 'POST',
       data: {
-          me: {
-              token: myToken,
-              left: myLeftHand,
-              right: myRightHand
-          },
-          opponent: {
-              token: oppToken,
-              left: oppLeftHand,
-              right: oppRightHand
-          }
+          deviceID: "1e0041000447343337373738",
+          functionName: "setState",
+          arg: gameState
       }
   },
   function(data) {
@@ -71,6 +62,7 @@ var postData = function(){
 };
 
 postData();
+getData();
 
 var UI = require('ui');
 var Vector2 = require('vector2');
@@ -313,32 +305,24 @@ var oppLeft = false; //attacking left or right */
     splitWind.add(oppScore);
     splitWind.add(myUser);
     splitWind.show();
-    var tempL = myLeftHand;
-    var tempR = myRightHand;
     splitWind.on('click','up',function(){
       //Increment Left, Decrement Right
-      if(myLeftHand+1 === 5 || myRightHand-1 === 0){
+      if ((myRightHand - 1) === 0) { // if subtracting 1 would give you 0, then we vibrate to let the user know that's not okay
         Vibe.vibrate('short');
       }
-      else if(myLeftHand+1 === tempR || myRightHand-1 === tempL){
-        Vibe.vibrate('short');
-      }
-      else{
-        myLeftHand++;
-        myRightHand--;
+      else { // otherwise increment left and decrement right
+        myLeftHand = myLeftHand + 1;
+        myRightHand = myRightHand - 1;
       }
     });
     splitWind.on('click','down',function(){
       //Increment right, Decrement left
-      if(myRightHand+1 === 5 || myLeftHand-1 === 0){
+      if ((myLeftHand - 1) === 0) {
         Vibe.vibrate('short');
       }
-      else if(myRightHand+1 === tempL || myLeftHand-1 === tempR){
-        Vibe.vibrate('short');
-      }
-      else{
-        myRightHand++;
-        myLeftHand--;
+      else {
+        myRightHand = myRightHand + 1;
+        myLeftHand = myLeftHand - 1;
       }
     });
     splitWind.on('click','select',function(){
@@ -358,8 +342,29 @@ main.on('longSelect',function() {
   });
   help.show();
 });
-getData();
+
 main.show();
+
+var update = function() {
+    getData();
+    
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
