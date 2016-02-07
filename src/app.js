@@ -42,7 +42,7 @@ var getData = function(){
 
 var postData = function(){
   console.log("getting data");
-    gameState = myLeftHand.toString() + myRightHand.toString() + oppLeftHand.toString() + oppRightHand.toString();
+    gameState = oppLeftHand.toString() + oppRightHand.toString() + myLeftHand.toString() + myRightHand.toString();
   ajax({
       url: 'https://api.particle.io/v1/devices/1e0041000447343337373738/setState?access_token=2611cd6341fadba0f63a3b190bd8c8540543592a', 
       type: 'json',
@@ -64,23 +64,7 @@ var postData = function(){
     });
 };
 
-var update = function() {
-  getData();
-  if (gameState === returned){
-    console.log("Waiting");
-  }
-  else {
-    console.log("My turn");
-    gameState = returned;
-    console.log(returned);
-    console.log(typeof gameState);
-    myLeftHand = parseInt(gameState.substr(0,1));
-    myRightHand = parseInt(gameState.substr(1,1));
-    oppLeftHand = parseInt(gameState.substr(2,1));
-    oppRightHand = parseInt(gameState.substr(3,1));
-    turn();
-  }
-};
+
 
 var UI = require('ui');
 var Vector2 = require('vector2');
@@ -229,11 +213,22 @@ main.on('select', function(e) {
       font: 'gothic-18-bold'
     });
     
+    var check = function(user_score) {
+      if (user_score === 5) {
+        user_score = 0;
+      }
+      else if (user_score >= 5) {
+        user_score = user_score - 5;
+      }
+      return user_score;
+    };
+    
     //Select Left
     theirHand.on('click','up', function(e){
       theirHand.add(oppScore);
       theirHand.add(highlightTheirLeft);
       oppLeft = true;
+      check(oppLeftHand);
       theirHand.show();
     });
     
@@ -242,21 +237,14 @@ main.on('select', function(e) {
       theirHand.add(oppScore);
       theirHand.add(highlightTheirRight);
       oppLeft = false;
+      check(oppRightHand);
       theirHand.show();
     });
     
-    var check = function(user_score) {
-      if (user_score === 5) {
-        user_score = 0;
-      }
-      else if (user_score > 5) {
-        user_score = user_score - 5;
-      }
-      return user_score;
-    };
-    
     //Confirm
     theirHand.on('click','select', function(e){
+      console.log("oppLeft: "+oppLeft);
+      console.log("isLeft: "+isLeft);
       //Stuff for sending state
       if (oppLeft) {
         if (isLeft) {
@@ -265,7 +253,8 @@ main.on('select', function(e) {
         else {
           oppLeftHand = oppLeftHand + myRightHand;
         }
-        check(oppLeftHand);
+        oppLeftHand = check(oppLeftHand);
+        console.log("oppLeftHand="+oppLeftHand);
       }
       else {
         if (isLeft) {
@@ -274,7 +263,8 @@ main.on('select', function(e) {
         else {
           oppRightHand = oppRightHand + myRightHand;
         }
-        check(oppRightHand);
+        oppRightHand = check(oppRightHand);
+        console.log("oppRightHand="+oppRightHand);
       }
       postData();
     });
@@ -360,6 +350,24 @@ main.on('select', function(e) {
   });
   
 });
+};
+
+var update = function() {
+  getData();
+  if (gameState === returned){
+    console.log("Waiting");
+  }
+  else {
+    console.log("My turn");
+    gameState = returned;
+    console.log(returned);
+    console.log(typeof gameState);
+    myLeftHand = parseInt(gameState.substr(0,1));
+    myRightHand = parseInt(gameState.substr(1,1));
+    oppLeftHand = parseInt(gameState.substr(2,1));
+    oppRightHand = parseInt(gameState.substr(3,1));
+    turn();
+  }
 };
 
 update();
