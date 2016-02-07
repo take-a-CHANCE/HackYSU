@@ -26,7 +26,7 @@ var getData = function(){
   console.log("getting data");
 
   ajax({
-      url: 'ec2-52-34-188-16.us-west-2.compute.amazonaws.com/api/player', 
+      url: 'ec2-52-34-188-16.us-west-2.compute.amazonaws.com:8080/api/player', 
     type: 'json'
   },
   function(data) {
@@ -42,7 +42,7 @@ var postData = function(){
   console.log("getting data");
 
   ajax({
-      url: 'ec2-52-34-188-16.us-west-2.compute.amazonaws.com/api/player', 
+      url: 'ec2-52-34-188-16.us-west-2.compute.amazonaws.com:8080/api/turn', 
       type: 'json',
       method: 'POST',
       data: {
@@ -62,7 +62,10 @@ var postData = function(){
     console.log("gotdata: " + JSON.stringify(data));
     
   },
-    function(error) {
+    function(error, status, request) {
+        console.log(this,typeof this);
+        console.log("status: "+ status);
+        console.log("Request: " + request);
       console.log("Got error: " + JSON.stringify(error));
     });
 };
